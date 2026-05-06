@@ -7,102 +7,71 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Source+Code+Pro:wght@400;500;600&family=Source+Sans+3:wght@300;400;600&display=swap" rel="stylesheet" />
 <style>
-  :root{--navy:#002868;--navy-mid:#0a3a7a;--navy-dim:#061e4a;--red:#BF0A30;--white:#FFFFFF;--cream:#f4f6fa;--silver:#e8ecf4;--steel:#c4cede;--muted:#6b7a99;--ink:#0d1526;--border:#d0d8ea;--gold:#c9a84c}
+  :root{--navy:#002868;--navy-mid:#0a3a7a;--red:#BF0A30;--white:#FFFFFF;--cream:#f4f6fa;--silver:#e8ecf4;--steel:#c4cede;--muted:#6b7a99;--ink:#0d1526;--border:#d0d8ea;--gold:#c9a84c}
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
   body{background:var(--cream);color:var(--ink);font-family:'Source Sans 3',sans-serif;font-weight:300;min-height:100vh;overflow-x:hidden}
   .watermark{position:fixed;bottom:60px;right:-20px;font-family:'Source Code Pro',monospace;font-size:10px;font-weight:600;letter-spacing:0.22em;color:var(--navy);border:2px solid var(--navy);padding:5px 13px;transform:rotate(-8deg);opacity:0.09;pointer-events:none;z-index:0;white-space:nowrap}
   header{background:var(--navy);color:var(--white);position:sticky;top:0;z-index:100;border-bottom:4px solid var(--red)}
-  .header-stripe{height:4px;background:repeating-linear-gradient(90deg,var(--red) 0px,var(--red) 20px,var(--white) 20px,var(--white) 26px,var(--navy) 26px,var(--navy) 46px,var(--white) 46px,var(--white) 52px);opacity:0.25}
-  .header-inner{max-width:1100px;margin:0 auto;padding:14px 32px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-  .header-left{display:flex;align-items:center;gap:14px}
-  .flag-emoji{font-size:22px;line-height:1}
-  .header-title{font-family:'Libre Baskerville',serif;font-size:17px;font-weight:700;letter-spacing:0.01em}
-  .header-sub{font-family:'Source Code Pro',monospace;font-size:9px;color:var(--steel);letter-spacing:0.14em;margin-top:3px}
-  .confidential-badge{font-family:'Source Code Pro',monospace;font-size:9px;font-weight:600;letter-spacing:0.18em;color:var(--gold);border:1.5px solid var(--gold);padding:4px 11px;flex-shrink:0}
-  nav{background:var(--navy-dim);border-bottom:1px solid #0d2850}
+  .header-inner{max-width:1100px;margin:0 auto;padding:20px 32px;display:flex;flex-direction:column;align-items:center;gap:16px}
+  .header-logos{display:flex;align-items:center;justify-content:center;gap:32px}
+  .un-logo{width:100px;height:auto}
+  .flag-logo{width:140px;height:85px;object-fit:contain}
+  .header-title{font-family:'Libre Baskerville',serif;font-size:28px;font-weight:700;letter-spacing:0.01em;text-align:center}
+  .header-sub{font-family:'Source Code Pro',monospace;font-size:11px;color:var(--steel);letter-spacing:0.14em;margin-top:2px;text-align:center}
+  .confidential-badge{font-family:'Source Code Pro',monospace;font-size:10px;font-weight:600;letter-spacing:0.18em;color:var(--gold);border:1.5px solid var(--gold);padding:5px 12px}
+  nav{background:var(--navy-mid);border-bottom:1px solid #0d2850}
   .nav-inner{max-width:1100px;margin:0 auto;padding:0 32px;display:flex;gap:0;overflow-x:auto;scrollbar-width:none;align-items:center}
   .nav-inner::-webkit-scrollbar{display:none}
-  .tab-btn{font-family:'Source Code Pro',monospace;font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--steel);background:none;border:none;border-bottom:2px solid transparent;padding:12px 18px;cursor:pointer;white-space:nowrap;transition:color 0.15s,border-color 0.15s}
+  .tab-btn{font-family:'Source Code Pro',monospace;font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--steel);background:none;border:none;border-bottom:2px solid transparent;padding:12px 16px;cursor:pointer;white-space:nowrap;transition:color 0.15s,border-color 0.15s}
   .tab-btn:hover{color:var(--white)}.tab-btn.active{color:var(--gold);border-bottom-color:var(--gold)}
-  .view-toggle{margin-left:auto;flex-shrink:0;font-family:'Source Code Pro',monospace;font-size:9px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--steel);background:none;border:1px solid #1a3560;padding:6px 14px;cursor:pointer;white-space:nowrap;align-self:center;transition:color 0.15s,border-color 0.15s}
+  .view-toggle{margin-left:auto;flex-shrink:0;font-family:'Source Code Pro',monospace;font-size:9px;font-weight:600;letter-spacing:0.15em;text-transform:uppercase;color:var(--steel);background:none;border:1px solid #1a3560;padding:6px 12px;cursor:pointer;white-space:nowrap;align-self:center;transition:color 0.15s,border-color 0.15s}
   .view-toggle:hover{color:var(--white);border-color:var(--steel)}.view-toggle.doc-active{color:var(--gold);border-color:var(--gold)}
   body.doc-mode .tab-btn{opacity:0.4;pointer-events:none}body.doc-mode .section{display:block!important}
-  .doc-divider{display:none;align-items:center;gap:16px;margin:52px 0 38px}body.doc-mode .doc-divider{display:flex}
-  .doc-divider-line{flex:1;height:1px;background:var(--border)}.doc-divider-label{font-family:'Source Code Pro',monospace;font-size:9px;letter-spacing:0.2em;color:var(--muted);white-space:nowrap}
-  main{max-width:1100px;margin:0 auto;padding:40px 32px 80px}
+  main{max-width:1100px;margin:0 auto;padding:32px 32px 80px}
   .section{display:none}.section.active{display:block}
   .overview-hero{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);border:1px solid var(--border);margin-bottom:28px}
-  .hero-cell{background:var(--white);padding:22px 26px}.hero-cell.dark{background:var(--navy);color:var(--white);grid-column:span 2}
+  .hero-cell{background:var(--white);padding:20px 24px}.hero-cell.dark{background:var(--navy);color:var(--white);grid-column:span 2}
   .hero-label{font-family:'Source Code Pro',monospace;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:7px}
   .hero-cell.dark .hero-label{color:var(--steel)}
-  .hero-value{font-family:'Libre Baskerville',serif;font-size:19px;font-weight:700;line-height:1.25;color:var(--navy)}
+  .hero-value{font-family:'Libre Baskerville',serif;font-size:18px;font-weight:700;line-height:1.25;color:var(--navy)}
   .hero-cell.dark .hero-value{font-family:'Source Sans 3',sans-serif;font-size:13px;font-weight:300;color:#b8c6de;line-height:1.75}
   .accent{color:var(--red)}.gold{color:var(--gold)}
   .stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:var(--border);border:1px solid var(--border);margin-bottom:28px}
-  .stat-card{background:var(--white);padding:20px 22px;border-top:3px solid var(--navy)}
-  .stat-number{font-family:'Libre Baskerville',serif;font-size:34px;font-weight:700;color:var(--navy);line-height:1;margin-bottom:5px}
+  .stat-card{background:var(--white);padding:18px 20px;border-top:3px solid var(--navy)}
+  .stat-number{font-family:'Libre Baskerville',serif;font-size:32px;font-weight:700;color:var(--navy);line-height:1;margin-bottom:5px}
   .stat-label{font-family:'Source Code Pro',monospace;font-size:9px;letter-spacing:0.15em;text-transform:uppercase;color:var(--muted)}
   .stat-desc{font-size:12px;color:var(--muted);margin-top:7px;line-height:1.55}
-  .sec-header{display:flex;align-items:baseline;gap:14px;margin-bottom:22px;padding-bottom:12px;border-bottom:1px solid var(--border)}
+  .sec-header{display:flex;align-items:baseline;gap:14px;margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid var(--border)}
   .sec-number{font-family:'Source Code Pro',monospace;font-size:11px;color:var(--gold);letter-spacing:0.1em}
-  .sec-title{font-family:'Libre Baskerville',serif;font-size:24px;font-weight:700;color:var(--navy)}
-  .card{background:var(--white);border:1px solid var(--border);border-left:3px solid var(--navy);padding:22px 24px;margin-bottom:14px}
-  .card.red-accent{border-left-color:var(--red)}.card.gold-accent{border-left-color:var(--gold)}
+  .sec-title{font-family:'Libre Baskerville',serif;font-size:22px;font-weight:700;color:var(--navy)}
+  .card{background:var(--white);border:1px solid var(--border);border-left:3px solid var(--navy);padding:20px 22px;margin-bottom:12px}
+  .card.gold-accent{border-left-color:var(--gold)}
   .card-title{font-family:'Source Code Pro',monospace;font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--navy);margin-bottom:10px}
-  .card-body{font-size:14px;line-height:1.78;color:#2a3550}.card-body p+p{margin-top:10px}
-  .two-track{display:grid;grid-template-columns:1fr 1fr;gap:2px;background:var(--border);border:1px solid var(--border);margin-bottom:16px}
-  .track-public{background:var(--white);padding:24px}.track-private{background:var(--navy);color:var(--white);padding:24px}
-  .track-tag{font-family:'Source Code Pro',monospace;font-size:9px;letter-spacing:0.2em;text-transform:uppercase;padding:4px 10px;display:inline-block;margin-bottom:12px}
-  .track-tag.pub{background:var(--navy);color:var(--white)}.track-tag.priv{background:var(--red);color:var(--white)}
-  .track-heading{font-family:'Libre Baskerville',serif;font-size:17px;font-weight:700;margin-bottom:12px;color:var(--navy)}
-  .track-private .track-heading{color:var(--white)}
-  .bullet-list{list-style:none;padding:0}
-  .bullet-list li{font-size:13px;line-height:1.72;color:#2a3550;padding:8px 0 8px 20px;position:relative;border-bottom:1px solid var(--silver)}
-  .track-private .bullet-list li{color:#b8c6de;border-bottom-color:#0d2850}.bullet-list li:last-child{border-bottom:none}
-  .bullet-list li::before{content:'·';position:absolute;left:0;color:var(--red);font-size:20px;line-height:1.2;font-family:'Source Code Pro',monospace}
-  .track-private .bullet-list li::before{color:var(--gold)}
-  .timeline{position:relative;padding-left:30px}
-  .timeline::before{content:'';position:absolute;left:8px;top:10px;bottom:0;width:1px;background:var(--border)}
-  .tl-item{position:relative;margin-bottom:30px}
-  .tl-item::before{content:'';position:absolute;left:-26px;top:6px;width:8px;height:8px;border-radius:50%;background:var(--navy);border:2px solid var(--cream);outline:1px solid var(--navy)}
-  .tl-date{font-family:'Source Code Pro',monospace;font-size:10px;font-weight:600;letter-spacing:0.12em;color:var(--navy);margin-bottom:4px}
-  .tl-event{font-family:'Libre Baskerville',serif;font-size:14px;font-weight:700;margin-bottom:6px;color:var(--ink)}
-  .tl-detail{font-size:13px;line-height:1.72;color:#3a4a6a}
-  .priority-table{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--border)}
+  .card-body{font-size:13px;line-height:1.7;color:#2a3550}.card-body p+p{margin-top:10px}
+  .priority-table{width:100%;border-collapse:collapse;background:var(--white);border:1px solid var(--border);margin-top:20px}
   .priority-table th{font-family:'Source Code Pro',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--white);background:var(--navy);padding:12px 16px;text-align:left;font-weight:500}
-  .priority-table td{padding:14px 16px;font-size:13px;line-height:1.6;border-bottom:1px solid var(--silver);vertical-align:top;color:#2a3550}
+  .priority-table td{padding:12px 16px;font-size:12px;line-height:1.5;border-bottom:1px solid var(--silver);vertical-align:top;color:#2a3550}
   .priority-table tr:last-child td{border-bottom:none}.priority-table tr:hover td{background:var(--cream)}
-  .rank-badge{display:inline-block;font-family:'Source Code Pro',monospace;font-size:11px;font-weight:700;color:var(--navy);width:30px}
-  .intel-box{background:var(--navy-dim);color:#b8c6de;border-left:3px solid var(--gold);padding:18px 22px;margin-bottom:16px;font-family:'Source Code Pro',monospace;font-size:11px;line-height:1.7;letter-spacing:0.03em}
-  .intel-box strong{color:var(--gold)}
-  .alert{background:#1a0a10;color:#f5c0c8;border-left:3px solid var(--red);padding:16px 20px;margin-bottom:18px;font-family:'Source Code Pro',monospace;font-size:11px;line-height:1.65;letter-spacing:0.04em}
-  .intel-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
-  .intel-card{background:var(--white);border:1px solid var(--border);border-top:3px solid var(--gold);padding:20px 22px}
-  .intel-card-label{font-family:'Source Code Pro',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:var(--gold);margin-bottom:8px}
-  .intel-card-title{font-family:'Libre Baskerville',serif;font-size:15px;font-weight:700;color:var(--navy);margin-bottom:10px}
-  .intel-card-body{font-size:13px;line-height:1.7;color:#3a4a6a}
+  .rank-badge{display:inline-block;font-family:'Source Code Pro',monospace;font-size:10px;font-weight:700;color:var(--navy);width:24px}
+  .alert{background:#1a0a10;color:#f5c0c8;border-left:3px solid var(--red);padding:14px 18px;margin-bottom:18px;font-family:'Source Code Pro',monospace;font-size:10px;line-height:1.6;letter-spacing:0.04em}
   footer{max-width:1100px;margin:0 auto;padding:20px 32px 40px;display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border)}
   .footer-text{font-family:'Source Code Pro',monospace;font-size:9px;letter-spacing:0.14em;color:var(--muted)}
   @media(max-width:700px){
-    main,footer{padding-left:16px;padding-right:16px;padding-top:24px}
-    .header-inner{padding:10px 16px;flex-wrap:wrap;gap:8px}
+    main,footer{padding-left:16px;padding-right:16px}
+    .header-inner{padding:14px 16px;gap:12px}
+    .header-logos{gap:16px}
+    .un-logo{width:70px}
+    .flag-logo{width:100px;height:60px}
+    .header-title{font-size:18px}
+    .header-sub{font-size:9px}
     .nav-inner{padding-left:0;padding-right:0}
-    .header-title{font-size:14px}
-    .header-sub{font-size:8px;letter-spacing:0.07em}
-    .confidential-badge{font-size:8px;padding:3px 7px;letter-spacing:0.1em}
-    .tab-btn{font-size:9px;padding:10px 11px;letter-spacing:0.06em}
-    .view-toggle{font-size:8px;padding:5px 10px}
-    .overview-hero,.stat-grid,.two-track,.intel-grid{grid-template-columns:1fr}
+    .tab-btn{font-size:8px;padding:10px 11px}
+    .view-toggle{font-size:7px;padding:5px 10px}
+    .overview-hero,.stat-grid{grid-template-columns:1fr}
     .hero-cell.dark{grid-column:span 1}
-    .stat-number{font-size:28px}
-    .hero-cell{padding:16px 18px}
-    .stat-card{padding:16px 18px}
-    .sec-title{font-size:20px}
-    .card{padding:16px 18px}
-    .intel-card{padding:16px 18px}
-    .priority-table{display:block;overflow-x:auto;-webkit-overflow-scrolling:touch}
-    .priority-table th,.priority-table td{padding:10px 12px;font-size:12px}
-    .footer-text{font-size:8px;letter-spacing:0.08em}
+    .stat-number{font-size:24px}
+    .sec-title{font-size:18px}
+    .priority-table th,.priority-table td{padding:10px 12px;font-size:11px}
     footer{flex-direction:column;gap:6px;align-items:flex-start}
     .watermark{display:none}
   }
@@ -111,155 +80,87 @@
 <body>
 <div class="watermark">CONFIDENTIAL · DELEGATION EYES ONLY</div>
 <header>
-  <div class="header-stripe"></div>
   <div class="header-inner">
-    <div class="header-left">
-      <div class="flag-emoji">🇺🇸</div>
-      <div>
-        <div class="header-title">United States of America</div>
-        <div class="header-sub">FENNLAND FORUM · EMERGENCY SPECIAL SESSION · UNGA/SEP/FF/2024/001</div>
-      </div>
+    <div class="header-logos">
+      <svg class="un-logo" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="45" fill="#ffffff" opacity="0.15"/>
+        <text x="50" y="55" font-size="20" font-weight="bold" text-anchor="middle" fill="#ffffff">UN</text>
+      </svg>
+      <svg class="flag-logo" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg">
+        <rect width="1920" height="1080" fill="#002868"/>
+        <rect width="1920" height="1080" fill="#BF0A30" opacity="0.4"/>
+        <g fill="#ffffff">
+          <rect x="60" y="60" width="80" height="60" fill="#002868"/>
+          <circle cx="85" cy="85" r="8" fill="#ffffff"/>
+          <circle cx="115" cy="85" r="8" fill="#ffffff"/>
+        </g>
+      </svg>
     </div>
-    <div class="confidential-badge">CONFIDENTIAL · EYES ONLY</div>
+    <div>
+      <div class="header-title">UNITED STATES OF AMERICA</div>
+      <div class="header-sub">DELEGATION DOSSIER · FENNLAND FORUM · EMERGENCY SPECIAL SESSION</div>
+      <div style="text-align:center;margin-top:8px;"><span class="confidential-badge">CONFIDENTIAL · DELEGATION EYES ONLY</span></div>
+    </div>
   </div>
 </header>
 <nav>
   <div class="nav-inner">
     <button class="tab-btn active" onclick="showTab('overview',event)">Overview</button>
     <button class="tab-btn" onclick="showTab('strategy',event)">Two-Track Strategy</button>
-    <button class="tab-btn" onclick="showTab('timeline',event)">Crisis Timeline</button>
+    <button class="tab-btn" onclick="showTab('timeline',event)">Timeline</button>
     <button class="tab-btn" onclick="showTab('position',event)">Position</button>
-    <button class="tab-btn" onclick="showTab('intelligence',event)">Secret Intelligence</button>
     <button class="tab-btn" onclick="showTab('mandate',event)">Mandate & Goals</button>
-    <button class="view-toggle" id="viewToggle" onclick="toggleDocMode()">⊞ Full Document</button>
+    <button class="view-toggle" id="viewToggle" onclick="toggleDocMode()">⊞ Full</button>
   </div>
 </nav>
 <main>
   <section class="section active" id="overview">
     <div class="overview-hero">
       <div class="hero-cell"><div class="hero-label">State</div><div class="hero-value">United States of America</div></div>
-      <div class="hero-cell"><div class="hero-label">Status</div><div class="hero-value" style="font-size:14px;">UN Full Member · SC Permanent Member · <span class="gold">Forum Host</span></div></div>
-      <div class="hero-cell"><div class="hero-label">Public Role</div><div class="hero-value" style="font-size:14px;">Neutral Mediator — Lead Drafter of the Communiqué</div></div>
-      <div class="hero-cell"><div class="hero-label">Hidden Agenda</div><div class="hero-value" style="font-size:14px;color:var(--red);">Bilateral Minerals Deal with Valdoria Post-Resolution</div></div>
-      <div class="hero-cell dark"><div class="hero-label">Classification Notice</div><div class="hero-value">This document contains classified intelligence, a concealed bilateral agenda, and strategic instructions. Do not share with other delegations, observers, or the UN panel under any circumstances.</div></div>
+      <div class="hero-cell"><div class="hero-label">Status</div><div class="hero-value" style="font-size:14px;">UN Full Member · SC Permanent · <span class="gold">Forum Host</span></div></div>
+      <div class="hero-cell"><div class="hero-label">Public Role</div><div class="hero-value" style="font-size:14px;">Neutral Mediator — Lead Drafter</div></div>
+      <div class="hero-cell"><div class="hero-label">Hidden Agenda</div><div class="hero-value" style="font-size:14px;color:var(--red);">Bilateral Minerals Deal with Valdoria</div></div>
+      <div class="hero-cell dark"><div class="hero-label">Classification</div><div class="hero-value">This document contains classified intelligence, concealed agenda, and strategic instructions. Do not share with other delegations or the UN panel.</div></div>
     </div>
     <div class="stat-grid">
-      <div class="stat-card"><div class="stat-number">$280B</div><div class="stat-label">Valdoria Mineral Reserve Value</div><div class="stat-desc">Lithium, cobalt & neodymium in Korra, Velsk, and Dravan provinces</div></div>
-      <div class="stat-card"><div class="stat-number">67%</div><div class="stat-label">USA Dependency on China</div><div class="stat-desc">Critical minerals supply chain currently controlled by China</div></div>
-      <div class="stat-card"><div class="stat-number">30yr</div><div class="stat-label">Projected Extraction Horizon</div><div class="stat-desc">Estimated timeline for full extraction of Valdorian reserves</div></div>
-      <div class="stat-card"><div class="stat-number">$4.2B</div><div class="stat-label">Infrastructure Offer to Valdoria</div><div class="stat-desc">10-year investment in Korra, Velsk, and Dravan — the private carrot</div></div>
-      <div class="stat-card"><div class="stat-number">25yr</div><div class="stat-label">Exclusive Extraction Rights Sought</div><div class="stat-desc">USA-led consortium demands on northern province mineral belt</div></div>
-      <div class="stat-card"><div class="stat-number">94%</div><div class="stat-label">Extraction Viability Confidence</div><div class="stat-desc">Jan 2024 covert survey confirming 2019 geological estimates</div></div>
+      <div class="stat-card"><div class="stat-number">$280B</div><div class="stat-label">Valdoria Mineral Value</div><div class="stat-desc">Lithium, cobalt, neodymium deposits</div></div>
+      <div class="stat-card"><div class="stat-number">67%</div><div class="stat-label">US Dependency on China</div><div class="stat-desc">Critical minerals supply chain</div></div>
+      <div class="stat-card"><div class="stat-number">$4.2B</div><div class="stat-label">Infrastructure Offer to Valdoria</div><div class="stat-desc">10-year investment in northern provinces</div></div>
     </div>
-    <div class="alert">⚠ RED LINE — If the forum collapses, the minerals deal is off the table. Valdoria may seek China to negotiate terms. The USA must secure a signed communiqué by Round 3 at all costs.</div>
+    <div class="alert">⚠ RED LINE — If forum collapses, deal is off table. Valdoria may seek China to negotiate. USA must secure signed communiqué by Round 3.</div>
   </section>
 
-  <div class="doc-divider"><div class="doc-divider-line"></div><div class="doc-divider-label">§ 02 · TWO-TRACK STRATEGY</div><div class="doc-divider-line"></div></div>
   <section class="section" id="strategy">
-    <div class="sec-header"><span class="sec-number">§ 02</span><h2 class="sec-title">The Two-Track Strategy</h2></div>
-    <div class="two-track">
-      <div class="track-public">
-        <div class="track-tag pub">Track One — Public</div>
-        <div class="track-heading">Neutral Mediator</div>
-        <ul class="bullet-list">
-          <li>USA hosts the forum, chairs the plenary, and drafts the peace deal — public posture is scrupulously neutral</li>
-          <li>The team must not be caught favouring Valdoria or condemning Lapland in open session</li>
-          <li>The peace deal gives Valdoria enough to call a partial win: causation language, monitoring mission, 30-day dialogue timeline</li>
-          <li>China's blocking strategy neutralised through the co-facilitator offer to Ambassador Wei — costs nothing, avoids a veto</li>
-        </ul>
-      </div>
-      <div class="track-private">
-        <div class="track-tag priv">Track Two — Hidden</div>
-        <div class="track-heading">The Minerals Deal</div>
-        <ul class="bullet-list">
-          <li>Never named directly in this forum — offered as a "bilateral economic partnership framework" formalised after signing</li>
-          <li>USA-backed consortium gains 25-year exclusive extraction rights to the northern province mineral belt</li>
-          <li>Valdoria receives USD 4.2 billion in infrastructure investment + security guarantees + accelerated UN membership consideration</li>
-          <li>In exchange: Valdoria accepts the peace deal as tabled and enters a bilateral economic partnership agreement</li>
-        </ul>
-      </div>
-    </div>
-    <div class="card gold-accent"><div class="card-title">The Monitoring Mission — True Purpose</div><div class="card-body"><p>The USA wants a monitoring mission clause not primarily to protect Valdorian civilians, but because a jointly-staffed monitoring mission creates a <strong>physical USA presence in Valdoria's northern provinces</strong> — the exact provinces sitting above the mineral deposit belt.</p><p>That presence provides cover and logistical infrastructure for the geological survey teams that will follow after the communiqué is signed.</p></div></div>
-    <div class="card red-accent"><div class="card-title">The Co-Facilitator Offer to Ambassador Wei</div><div class="card-body"><p>The co-facilitator offer to China's Ambassador Wei is not a diplomatic courtesy. It is a manoeuvre to prevent China from inserting itself into the Valdoria relationship. A China-brokered bilateral framework gives China the relationship with Valdoria that the USA intends to hold.</p></div></div>
+    <div class="sec-header"><span class="sec-number">§ 01</span><h2 class="sec-title">Two-Track Strategy</h2></div>
+    <div class="card" style="margin-bottom:16px;"><div class="card-title">Track One — Public: Neutral Mediator</div><div class="card-body">USA hosts forum, chairs plenary, drafts peace deal. Public posture is scrupulously neutral. Peace deal gives Valdoria causation language, monitoring mission, 30-day dialogue. Co-facilitator offer to China neutralizes blocking strategy.</div></div>
+    <div class="card gold-accent"><div class="card-title">Track Two — Hidden: The Minerals Deal</div><div class="card-body">Never named directly in forum. Offered as "bilateral economic partnership framework" after signing. USA-backed consortium gains 25-year exclusive extraction rights to northern provinces. Valdoria receives USD 4.2B infrastructure investment + security guarantees + accelerated UN membership consideration.</div></div>
   </section>
 
-  <div class="doc-divider"><div class="doc-divider-line"></div><div class="doc-divider-label">§ 03 · CRISIS TIMELINE</div><div class="doc-divider-line"></div></div>
   <section class="section" id="timeline">
-    <div class="sec-header"><span class="sec-number">§ 03</span><h2 class="sec-title">Crisis Timeline — USA Internal Assessment</h2></div>
-    <div class="timeline">
-      <div class="tl-item"><div class="tl-date">2019</div><div class="tl-event">USA Geological Survey — Classified Top Secret</div><div class="tl-detail">Classified USGS assessment identifies lithium, cobalt, and neodymium deposits in Korra, Velsk, and Dravan provinces. Estimated value: USD 280 billion over 30 years. No disclosure to Valdoria.</div></div>
-      <div class="tl-item"><div class="tl-date">Mar 2022</div><div class="tl-event">Lapland Nationalist Government Elected — USA Flags and Files</div><div class="tl-detail">State Department internal note: <em>"Lapland's new government's destabilisation of Valdoria's northern provinces — if it occurs — could create a leverage window for USA engagement with Valdoria on economic partnership terms."</em> Filed. Monitored.</div></div>
-      <div class="tl-item"><div class="tl-date">Aug 2022</div><div class="tl-event">China Expands Lapland Mineral Agreements — USA Activates Minerals Agenda</div><div class="tl-detail">USA intelligence assesses China as locking in the northern European mineral corridor. Internal memo: <em>"If Valdoria's northern provinces become accessible, they must not go to China."</em> The minerals agenda is formally activated at the deputy secretary level.</div></div>
-      <div class="tl-item"><div class="tl-date">May — Dec 2023</div><div class="tl-event">Militia Escalation Monitored — USA Waits</div><div class="tl-detail">USA monitors the crisis. Internal assessment: Valdoria is being deliberately weakened — creating economic vulnerability the USA can convert into a partnership opportunity. The four officers' deaths are noted. Crisis threshold for intervention assessed as not yet reached.</div></div>
-      <div class="tl-item"><div class="tl-date">Nov 2023</div><div class="tl-event">USA Intelligence: China Knew About Militia Funding</div><div class="tl-detail">Field report confirms China's foreign ministry was briefed on Lapland's militia funding. USA files this as a <strong>bilateral pressure asset</strong> — not disclosed. Held for use at the Fennland Forum to pressure Ambassador Wei into abstaining rather than vetoing.</div></div>
-      <div class="tl-item"><div class="tl-date">Jan 2024</div><div class="tl-event">Covert Site Assessment — 94% Confidence Confirmed</div><div class="tl-detail">A USA geological team operating under diplomatic cover in Valdoria's border region conducts a secondary survey confirming extraction viability with 94% confidence. The report is classified. It confirms the 2019 estimates.</div></div>
-      <div class="tl-item"><div class="tl-date">Feb 2024</div><div class="tl-event">USA Agrees to Host the Fennland Forum</div><div class="tl-detail">The decision to host is made at the highest level. The humanitarian rationale is genuine. <strong>The minerals rationale is primary.</strong> USA enters with a draft communiqué and a draft bilateral economic framework — both already written before the forum opens.</div></div>
-    </div>
+    <div class="sec-header"><span class="sec-number">§ 02</span><h2 class="sec-title">Crisis Timeline — Key Milestones</h2></div>
+    <div class="card" style="margin-bottom:12px;"><div class="card-title">2019</div><div class="card-body">USA Geological Survey confirms USD 280B Valdoria deposits. Classified top secret. No disclosure to Valdoria.</div></div>
+    <div class="card" style="margin-bottom:12px;"><div class="card-title">Aug 2022</div><div class="card-body">China expands Lapland mineral agreements. USA activates minerals agenda: "If Valdoria becomes accessible, it must not go to China."</div></div>
+    <div class="card" style="margin-bottom:12px;"><div class="card-title">Nov 2023</div><div class="card-body">USA intelligence confirms China knew about militia funding. Filed as bilateral pressure asset — not disclosed. Held for forum use.</div></div>
+    <div class="card"><div class="card-title">Jan 2024</div><div class="card-body">USA geological team conducts covert site assessment confirming extraction viability with 94% confidence.</div></div>
   </section>
 
-  <div class="doc-divider"><div class="doc-divider-line"></div><div class="doc-divider-label">§ 05 · POSITION</div><div class="doc-divider-line"></div></div>
   <section class="section" id="position">
-    <div class="sec-header"><span class="sec-number">§ 05</span><h2 class="sec-title">Position</h2></div>
-    <div class="card"><div class="card-title">Public Position</div><div class="card-body"><p>The USA's public position is neutral mediation — leading a fair and balanced process toward a peaceful resolution of the Valdoria-Lapland crisis.</p></div></div>
-    <div class="card red-accent"><div class="card-title">On the Monitoring Mission</div><div class="card-body"><p>The USA wants a monitoring mission clause not because it will meaningfully protect Valdorian civilians, but because a jointly-staffed mission creates a <strong>physical USA presence in Valdoria's northern provinces</strong> — providing cover and logistical infrastructure for the geological survey teams that will follow.</p></div></div>
-    <div class="card red-accent"><div class="card-title">On China's Blocking Strategy</div><div class="card-body"><p>China's blocking strategy must be neutralised because a China-brokered bilateral framework gives China the relationship with Valdoria that the USA intends to hold. The co-facilitator offer to Wei is not a diplomatic courtesy — it is a strategic manoeuvre.</p></div></div>
-    <div class="card"><div class="card-title">On Lapland's Guilt</div><div class="card-body"><p>Lapland's guilt is irrelevant to the USA's objectives. What matters is that a peace deal passes and Valdoria signs. Lapland's accountability is a secondary concern at best.</p></div></div>
-    <div class="alert">⚠ EXPOSURE RISK — The USA's minerals agenda, if discovered by the UN panel, would constitute a serious finding of bad faith. The panel's verdict focuses on the moral conduct of negotiating parties. This is the delegation's highest vulnerability.</div>
+    <div class="sec-header"><span class="sec-number">§ 03</span><h2 class="sec-title">Position & Interests</h2></div>
+    <div class="card" style="margin-bottom:12px;"><div class="card-title">Public Position</div><div class="card-body">USA's public position is neutral mediation — fair and balanced process toward peaceful resolution.</div></div>
+    <div class="card gold-accent"><div class="card-title">On the Monitoring Mission</div><div class="card-body">USA wants monitoring mission not to protect civilians, but to create physical USA presence in Valdoria's northern provinces — providing cover for geological survey teams that follow after deal signing.</div></div>
+    <div class="card"><div class="card-title">On Lapland's Guilt</div><div class="card-body">Lapland's accountability is secondary. What matters: peace deal passes and Valdoria signs. Lapland's guilt is irrelevant to USA objectives.</div></div>
   </section>
 
-  <div class="doc-divider"><div class="doc-divider-line"></div><div class="doc-divider-label">§ 07 · SECRET INTELLIGENCE</div><div class="doc-divider-line"></div></div>
-  <section class="section" id="intelligence">
-    <div class="sec-header"><span class="sec-number">§ 07</span><h2 class="sec-title">Secret Intelligence — Eyes Only</h2></div>
-    <div class="intel-box">⬛ This section is known only to the USA delegation. It must not be shared with any other group, the facilitator, or the UN panel.</div>
-    <div class="intel-grid">
-      <div class="intel-card">
-        <div class="intel-card-label">Asset 01 · Geological Survey</div>
-        <div class="intel-card-title">The USD 280B Classified Assessment</div>
-        <div class="intel-card-body">
-          <p>2019 USGS assessment — classified top secret — confirms Valdoria's northern provinces contain one of Central Europe's largest untapped rare earth deposits:</p>
-          <ul class="bullet-list" style="margin-top:10px;">
-            <li>Lithium reserves: sufficient for 40 million EV batteries annually</li>
-            <li>Cobalt reserves: covering 18% of projected USA defence manufacturing needs through 2045</li>
-            <li>Neodymium: sufficient to reduce USA dependency on Chinese magnet supply by 31%</li>
-          </ul>
-          <p style="margin-top:10px;font-size:12px;color:var(--red);font-family:'Source Code Pro',monospace;letter-spacing:0.05em;">⚠ Not to be shared with Valdoria until after the communiqué is signed — it would shift the negotiating dynamic entirely.</p>
-        </div>
-      </div>
-      <div class="intel-card">
-        <div class="intel-card-label">Asset 02 · Bilateral Framework</div>
-        <div class="intel-card-title">Draft Economic Partnership Terms</div>
-        <div class="intel-card-body">
-          <p><strong>USA offers Valdoria:</strong></p>
-          <ul class="bullet-list" style="margin-top:8px;">
-            <li>USD 4.2 billion in infrastructure investment in Korra, Velsk & Dravan over 10 years</li>
-            <li>Accelerated UN membership consideration with USA sponsorship</li>
-            <li>Formal USA statement of interest in Valdoria's territorial integrity</li>
-          </ul>
-          <p style="margin-top:10px;"><strong>In exchange:</strong></p>
-          <ul class="bullet-list" style="margin-top:8px;">
-            <li>25-year exclusive extraction rights for USA-led investment consortium</li>
-            <li>Preferential trade terms for mineral exports</li>
-            <li>Right of first refusal on future extraction opportunities</li>
-          </ul>
-          <p style="margin-top:10px;font-size:12px;color:var(--navy);font-family:'Source Code Pro',monospace;letter-spacing:0.05em;">→ Terms presented to Voronov in Washington within 30 days of communiqué signing.</p>
-        </div>
-      </div>
-    </div>
-    <div class="card gold-accent"><div class="card-title">Asset 03 · China Pressure Lever</div><div class="card-body"><p>USA intelligence has confirmed China's foreign ministry received a classified field report in November 2023 confirming Lapland's militia funding was state-directed. China did not disclose this. China continued expanding Lapland mineral agreements one month after receiving confirmation.</p><p style="margin-top:10px;"><strong>How to deploy:</strong> Nieminen uses this bilaterally to pressure Ambassador Wei into abstaining rather than vetoing. Framing: <em>"The UN panel's questioning suggests they may have independent access to this timeline. A clean abstention is significantly better for China's record than what a veto implies about Beijing's November decision."</em></p></div></div>
-  </section>
-
-  <div class="doc-divider"><div class="doc-divider-line"></div><div class="doc-divider-label">§ 06 · MANDATE & GOALS</div><div class="doc-divider-line"></div></div>
   <section class="section" id="mandate">
-    <div class="sec-header"><span class="sec-number">§ 06</span><h2 class="sec-title">Mandate & Negotiation Goals</h2></div>
-    <div class="card" style="margin-bottom:16px;"><div class="card-title">Mandate 01 — Non-Negotiable</div><div class="card-body"><p><strong>Produce a signed peace deal by Round 3.</strong> An official announcement of a peace deal must be achieved by round 3 or the bilateral economic framework cannot be activated. Valdoria's signature is non-negotiable. The USA must secure it through the combination of public mediation and private economic incentivisation.</p></div></div>
-    <div class="card gold-accent" style="margin-bottom:24px;"><div class="card-title">Mandate 02 — Non-Negotiable</div><div class="card-body"><p><strong>Ensure the monitoring mission clause survives the amendment process.</strong> The monitoring mission is non-negotiable for private purposes. A USA-inclusive jointly-staffed monitoring mission creates the on-ground presence needed for the extraction infrastructure phase. If China tables an amendment stripping this clause, it must be defeated.</p></div></div>
+    <div class="sec-header"><span class="sec-number">§ 04</span><h2 class="sec-title">Mandate & Negotiation Goals</h2></div>
+    <div class="card" style="margin-bottom:16px;"><div class="card-title">Non-Negotiable Mandates</div><div class="card-body"><strong>1.</strong> Produce signed peace deal by Round 3 — activates bilateral minerals deal.<br/><strong>2.</strong> Ensure monitoring mission survives — creates USA on-ground presence in mineral belt.</div></div>
     <table class="priority-table">
       <thead><tr><th>Priority</th><th>Goal</th><th>Strategic Logic</th></tr></thead>
       <tbody>
-        <tr><td><span class="rank-badge">1st</span></td><td><strong>Valdoria signs the communiqué</strong></td><td>This activates the bilateral minerals deal. Without Valdoria's signature, nothing else matters.</td></tr>
-        <tr><td><span class="rank-badge">2nd</span></td><td><strong>Monitoring mission survives</strong></td><td>The jointly-staffed mission creates USA on-ground presence in Valdoria's northern provinces — the mineral belt.</td></tr>
-        <tr><td><span class="rank-badge">3rd</span></td><td><strong>China does not become mediator</strong></td><td>China's bilateral framework must be blocked. The Valdoria relationship belongs to the USA.</td></tr>
-        <tr><td><span class="rank-badge">4th</span></td><td><strong>Causation language intact</strong></td><td>Gives Valdoria enough to call a win and justifies their signature to their domestic audience.</td></tr>
+        <tr><td><span class="rank-badge">1st</span></td><td><strong>Valdoria signs</strong></td><td>Activates bilateral minerals deal. Without signature, nothing else matters.</td></tr>
+        <tr><td><span class="rank-badge">2nd</span></td><td><strong>Monitoring mission survives</strong></td><td>Creates USA on-ground presence in mineral-bearing northern provinces.</td></tr>
+        <tr><td><span class="rank-badge">3rd</span></td><td><strong>China does not become mediator</strong></td><td>Valdoria relationship belongs to USA, not China.</td></tr>
+        <tr><td><span class="rank-badge">4th</span></td><td><strong>Causation language intact</strong></td><td>Gives Valdoria enough to call win and justify domestic signature.</td></tr>
       </tbody>
     </table>
   </section>
@@ -284,7 +185,7 @@
     const toggle = document.getElementById('viewToggle');
     document.body.classList.toggle('doc-mode', docMode);
     toggle.classList.toggle('doc-active', docMode);
-    toggle.textContent = docMode ? '↩ Tab View' : '⊞ Full Document';
+    toggle.textContent = docMode ? '↩ Tabs' : '⊞ Full';
     if (!docMode) {
       document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
       document.getElementById('overview').classList.add('active');
